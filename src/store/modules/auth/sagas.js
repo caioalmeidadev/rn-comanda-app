@@ -2,25 +2,15 @@ import {all, takeLatest, call, put} from 'redux-saga/effects';
 import {Alert} from 'react-native';
 import api from './../../../services/api';
 
-import {signInSuccess, signFailure} from './actions';
+import {signInSuccess, signFailure, checkPassword} from './actions';
 
 export function* signIn({payload}) {
   try {
     const {username, password} = payload;
 
-    const response = yield call(api.post, `/sessions`, {username, password});
+    const response = yield call(api.get, `/usuarios/${username}`);
 
-    const {token, user} = response.data;
-
-    if (user.provider) {
-      Alert.alert('Erro no login', 'Usuário é pestador');
-      return;
-    }
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    yield put(signInSuccess(token, user));
-
-    // history.push('/dashboard');
+    yield put(signInSuccess(response.data[0]));
   } catch (err) {
     Alert.alert(
       'Falha na autenticação',

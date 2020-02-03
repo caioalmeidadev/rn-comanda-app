@@ -1,8 +1,8 @@
-import {all, takeLatest, call, put} from 'redux-saga';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
+import { all, call, put } from 'redux-saga';
 import api from './../../../services/api';
+import { ordersFailure } from './actions';
 
-import {ordersSuccess, ordersFailure} from './actions';
 
 export function* getOrders() {
   try {
@@ -15,3 +15,5 @@ export function* getOrders() {
     yield put(ordersFailure());
   }
 }
+
+export default all([]);

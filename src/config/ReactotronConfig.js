@@ -10,6 +10,8 @@ if (__DEV__) {
     .use(reactotronRedux())
     .use(reactotronSaga())
     .connect();
+
   tron.clear();
+
   console.tron = tron;
 }

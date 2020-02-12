@@ -5,7 +5,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
+  font-size: 30px;
   color: #fff;
   font-weight: bold;
   align-self: center;
@@ -18,19 +18,7 @@ export const List = styled.FlatList.attrs({
     padding: 10,
   },
 })``;
-export const Header = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
 
-export const NovaComanda = styled(Input)`
-  margin: 20px;
-  flex: 1;
-`;
-
-export const Camera = styled.TouchableOpacity`
-  margin-right: 10px;
-  align-items: center;
-  justify-content: center;
+export const InputHeader = styled(Input)`
+  margin: 5px 15px;
 `;

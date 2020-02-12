@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   setHost,
   configReset,
@@ -59,3 +60,10 @@ export default function Config({navigation}) {
     </Background>
   );
 }
+
+Config.navigationOptions = {
+  tabBarLabel: 'Configurações',
+  tabBarIcon: ({tintColor}) => (
+    <Icon name="settings" size={20} color={tintColor} />
+  ),
+};

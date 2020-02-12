@@ -1,59 +1,74 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {RNCamera} from 'react-native-camera';
+import {withNavigationFocus} from 'react-navigation';
+
+import api from './../../services/api';
+import {ordersRequest} from './../../store/modules/orders/actions';
+
 import Background from '../../components/Background';
 import Table from '../../components/Table';
 
-import {Container, List, Title, NovaComanda, Header, Camera} from './styles';
+import {Container, List, Title, InputHeader} from './styles';
 
-const tables = ['0001', '0005', '0062', '0080'];
-
-export default function TablesGrid() {
-  const [orders, setOrders] = useState(tables);
+function TablesGrid({isFocused}) {
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState([]);
   const [orderNo, setOrderNo] = useState('');
-  const cameraRef = useRef();
 
-  async function handleCamera() {
-    const options = {quality: 0.5, base64: true};
-    const data = await cameraRef.takePictureAsync(options);
-    console.tron.log(data);
+  async function loadOrders() {
+    const response = await api.get('comandas');
+    setOrders(response.data);
   }
+
+  useEffect(() => {
+    if (isFocused) {
+      loadOrders();
+    }
+  }, []);
+
+  async function handleSubmit() {
+    dispatch(ordersRequest());
+  }
+
   return (
     <Background>
-      <RNCamera
-        ref={cameraRef}
-        type={RNCamera.Constants.Type.back}
-        flashMode={RNCamera.Constants.FlashMode.off}
-        onBarCodeRead={({data}) => {
-          console.tron.log(data);
-        }}
-      />
       <Container>
         <Title>Comandas</Title>
-        <Header>
-          <NovaComanda
-            keyboardType="number-pad"
-            placeholder="Digite o código da comanda"
-            returnKeyType="done"
-            value={orderNo}
-            onChangeText={setOrderNo}
-            onSubmitEditing={() => {
-              console.tron.log(orderNo);
-            }}
-          />
-          <Camera
-            onPress={() => {
-              handleCamera;
-            }}>
-            <Icon name="photo-camera" size={40} color="#C0C0C0" />
-          </Camera>
-        </Header>
+
+        <InputHeader
+          keyboardType="number-pad"
+          placeholder="Digite o código da comanda"
+          returnKeyType="done"
+          value={orderNo}
+          onChangeText={setOrderNo}
+          onSubmitEditing={() => {
+            console.tron.log(orderNo);
+          }}
+        />
+
         <List
           data={orders}
-          keyExtractor={item => String(item)}
-          renderItem={({item}) => <Table data={item} onPress={() => {}} />}
+          keyExtractor={item => String(item.codigo_comanda)}
+          renderItem={({item}) => (
+            <Table
+              data={item}
+              onPress={() => {
+                console.tron.log(item.codigo_comanda);
+              }}
+            />
+          )}
         />
       </Container>
     </Background>
   );
 }
+
+TablesGrid.navigationOptions = {
+  tabBarLabel: 'Comandas',
+  tabBarIcon: ({tintColor}) => (
+    <Icon name="event" size={20} color={tintColor} />
+  ),
+};
+
+export default withNavigationFocus(TablesGrid);

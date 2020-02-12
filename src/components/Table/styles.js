@@ -13,12 +13,12 @@ export const Container = styled.View`
 `;
 
 export const TableNo = styled.Text`
-  font-size: 18px;
+  font-size: 32px;
   font-weight: bold;
-  color: #fff;
+  color: #eee;
 `;
 
 export const TotalText = styled.Text`
-  font-size: 20px;
-  color: #ff0000;
+  font-size: 50px;
+  color: #eee;
 `;

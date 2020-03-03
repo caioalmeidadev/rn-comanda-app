@@ -6,17 +6,19 @@ import {Container, Scanner, SnapButton, SnapButtonText} from './styles';
 
 export default function ScanCode() {
   const cameraRef = useRef();
+  async function takePic() {
+    if (cameraRef) {
+      const data = await cameraRef.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+      });
+      console.tron.log(data.uri);
+    }
+  }
+
   useEffect(() => {
-    const takePic = async () => {
-      if (cameraRef) {
-        const data = await cameraRef.takePictureAsync({
-          quality: 0.5,
-          base64: true,
-        });
-        console.tron.log(data.uri);
-      }
-    };
     takePic();
+    console.tron.log(RNCamera.Constants.CameraStatus);
   }, []);
   return (
     <Background>
@@ -24,12 +26,14 @@ export default function ScanCode() {
         <Scanner
           ref={cameraRef}
           type={RNCamera.Constants.Type.back}
-          barCodeTypes={RNCamera.Constants.BarCodeType.ean13}
+          barCodeTypes={[RNCamera.Constants.BarCodeType.ean13]}
           onBarCodeRead={data => {
             console.tron.log(data);
           }}>
           <SnapButton>
-            <SnapButtonText>SnapButton</SnapButtonText>
+            <SnapButtonText onPress={() => takePic()}>
+              SnapButton
+            </SnapButtonText>
           </SnapButton>
         </Scanner>
       </Container>

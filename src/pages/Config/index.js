@@ -20,6 +20,8 @@ export default function Config({navigation}) {
   const dispatch = useDispatch();
   const host = useSelector(state => state.config.host);
   const [hostname, setHostname] = useState(host || '');
+  console.tron.log(navigation);
+
   function handleHostConfig() {
     if (!hostname) {
       Alert.alert('Atenção', 'O endereço do servidor parece ser inválido.');

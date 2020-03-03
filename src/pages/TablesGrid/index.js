@@ -15,9 +15,11 @@ function TablesGrid({isFocused}) {
   const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
   const [orderNo, setOrderNo] = useState('');
+  const [refresh, setRefresh] = useState(false);
 
   async function loadOrders() {
     const response = await api.get('comandas');
+    console.tron.log('ok');
     setOrders(response.data);
   }
 
@@ -26,6 +28,12 @@ function TablesGrid({isFocused}) {
       loadOrders();
     }
   }, []);
+
+  async function handleRefresh() {
+    setRefresh(true);
+    await loadOrders();
+    setRefresh(false);
+  }
 
   async function handleSubmit() {
     dispatch(ordersRequest());
@@ -50,10 +58,12 @@ function TablesGrid({isFocused}) {
         <List
           data={orders}
           keyExtractor={item => String(item.codigo_comanda)}
+          refreshing={refresh}
+          onRefresh={handleRefresh}
           renderItem={({item}) => (
             <Table
               data={item}
-              onPress={() => {
+              onSelect={() => {
                 console.tron.log(item.codigo_comanda);
               }}
             />

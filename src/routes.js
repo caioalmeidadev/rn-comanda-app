@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import TablesGrid from './pages/TablesGrid';
 import ScanCode from './pages/New/ScanCode';
 import SelectItem from './pages/New/SelectItem';
+import Order from './pages/Order';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -21,6 +22,7 @@ export default (signedIn = false) =>
         App: createBottomTabNavigator(
           {
             TablesGrid,
+
             New: {
               screen: createStackNavigator(
                 {

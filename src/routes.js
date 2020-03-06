@@ -19,6 +19,18 @@ export default (signedIn = false) =>
           Login,
           Config,
         }),
+        Details: createStackNavigator(
+          {
+            Order,
+          },
+          {
+            defaultNavigationOptions: {
+              headerTransparent: true,
+              headerTintColor: '#FFF',
+              headerLeftContainerStyle: {marginLeft: 20},
+            },
+          },
+        ),
         App: createBottomTabNavigator(
           {
             TablesGrid,

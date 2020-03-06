@@ -8,17 +8,12 @@ export const Container = styled.TouchableOpacity`
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 
 export const TableNo = styled.Text`
   font-size: 32px;
   font-weight: bold;
-  color: #eee;
-`;
-
-export const TotalText = styled.Text`
-  font-size: 50px;
   color: #eee;
 `;

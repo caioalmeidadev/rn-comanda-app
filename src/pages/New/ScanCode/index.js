@@ -7,6 +7,7 @@ import {Container, Scanner, SnapButton, SnapButtonText} from './styles';
 export default function ScanCode() {
   const cameraRef = useRef();
   async function takePic() {
+    console.tron.log(cameraRef);
     if (cameraRef) {
       const data = await cameraRef.takePictureAsync({
         quality: 0.5,
@@ -18,8 +19,7 @@ export default function ScanCode() {
 
   useEffect(() => {
     takePic();
-    console.tron.log(RNCamera.Constants.CameraStatus);
-  }, []);
+  }, [cameraRef]);
   return (
     <Background>
       <Container>

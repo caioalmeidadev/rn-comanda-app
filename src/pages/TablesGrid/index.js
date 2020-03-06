@@ -11,15 +11,14 @@ import Table from '../../components/Table';
 
 import {Container, List, Title, InputHeader} from './styles';
 
-function TablesGrid({isFocused}) {
+function TablesGrid({navigation, isFocused}) {
   const dispatch = useDispatch();
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(null);
   const [orderNo, setOrderNo] = useState('');
   const [refresh, setRefresh] = useState(false);
 
   async function loadOrders() {
     const response = await api.get('comandas');
-    console.tron.log('ok');
     setOrders(response.data);
   }
 
@@ -57,14 +56,14 @@ function TablesGrid({isFocused}) {
 
         <List
           data={orders}
-          keyExtractor={item => String(item.codigo_comanda)}
+          keyExtractor={item => String(item.codigoComanda)}
           refreshing={refresh}
           onRefresh={handleRefresh}
           renderItem={({item}) => (
             <Table
               data={item}
               onSelect={() => {
-                console.tron.log(item.codigo_comanda);
+                navigation.navigate('Order', {orderId: item.codigoComanda});
               }}
             />
           )}

@@ -1,13 +1,21 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef} from 'react';
 import {RNCamera} from 'react-native-camera';
 import Background from './../../../components/Background';
 
-import {Container, Scanner, SnapButton, SnapButtonText} from './styles';
+import {
+  Container,
+  Scanner,
+  SnapButton,
+  SnapButtonText,
+  InputHeader,
+  SelectButton,
+  ButtonText,
+} from './styles';
 
 export default function ScanCode() {
   const cameraRef = useRef();
+  const [orderId, setOrderId] = useState('');
   async function takePic() {
-    console.tron.log(cameraRef);
     if (cameraRef) {
       const data = await cameraRef.takePictureAsync({
         quality: 0.5,
@@ -17,9 +25,6 @@ export default function ScanCode() {
     }
   }
 
-  useEffect(() => {
-    takePic();
-  }, [cameraRef]);
   return (
     <Background>
       <Container>
@@ -36,6 +41,21 @@ export default function ScanCode() {
             </SnapButtonText>
           </SnapButton>
         </Scanner>
+
+        <InputHeader
+          keyboardType="number-pad"
+          placeholder="Digite o código da comanda"
+          returnKeyType="done"
+          value={orderId}
+          onChangeText={setOrderId}
+          onSubmitEditing={() => {
+            console.tron.log(orderId);
+          }}
+        />
+        <ButtonContainer>
+          <SelectButton onPress={() => {}}>Ok</SelectButton>
+          <SelectButton onPress={() => {}}>Scanear</SelectButton>
+        </ButtonContainer>
       </Container>
     </Background>
   );

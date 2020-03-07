@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Button from './../../components/Button';
 import {RNCamera} from 'react-native-camera';
 
 export const Container = styled.View`
@@ -21,3 +22,11 @@ export const SnapButton = styled.TouchableOpacity`
 export const SnapButtonText = styled.Text`
   font-size: 14px;
 `;
+
+export const InputHeader = styled(Input)`
+  margin: 5px 15px;
+`;
+
+export const SelectButton = styled(Button)``;
+
+export const ButtonText = styled(Button)``;

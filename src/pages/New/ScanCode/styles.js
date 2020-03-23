@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import Button from './../../components/Button';
+import Button from './../../../components/Button';
+import Input from './../../../components/Input';
 import {RNCamera} from 'react-native-camera';
 
 export const Container = styled.View`
@@ -29,4 +30,4 @@ export const InputHeader = styled(Input)`
 
 export const SelectButton = styled(Button)``;
 
-export const ButtonText = styled(Button)``;
+export const ButtonText = styled.Text``;

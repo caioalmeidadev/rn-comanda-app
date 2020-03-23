@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {RNCamera} from 'react-native-camera';
 import Background from './../../../components/Background';
 
@@ -53,8 +53,12 @@ export default function ScanCode() {
           }}
         />
         <ButtonContainer>
-          <SelectButton onPress={() => {}}>Ok</SelectButton>
-          <SelectButton onPress={() => {}}>Scanear</SelectButton>
+          <SelectButton onPress={() => {}}>
+            <ButtonText>OK</ButtonText>
+          </SelectButton>
+          <SelectButton onPress={() => {}}>
+            <ButtonText>Scanear</ButtonText>
+          </SelectButton>
         </ButtonContainer>
       </Container>
     </Background>
